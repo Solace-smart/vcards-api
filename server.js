@@ -1,5 +1,5 @@
 const express = require('express');
-const fs = require('fs');
+const fs = require('fs').promises; // Use the promise-based version of fs
 const path = require('path');
 const cors = require('cors');
 
@@ -13,38 +13,57 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve static files from the vcards directory for each vCard
-app.use('/:name', (req, res, next) => {
+app.use('/:name', async (req, res, next) => {
   const name = req.params.name;
   const vcardPath = path.join(__dirname, 'vcards', name);
-  if (fs.existsSync(vcardPath)) {
-    express.static(vcardPath)(req, res, next);
-  } else {
-    next();
+
+  try {
+    if (await fs.access(vcardPath).then(() => true).catch(() => false)) {
+      express.static(vcardPath)(req, res, next);
+    } else {
+      const unknownVCardPath = path.join(__dirname, 'vcards', 'bulunamadi');
+      express.static(unknownVCardPath)(req, res, next);
+      // next();
+    }
+  } catch (error) {
+    const unknownVCardPath = path.join(__dirname, 'vcards', 'bulunamadi');
+    express.static(unknownVCardPath)(req, res, next);
+    // next(error); // Pass errors to Express error handling
   }
 });
 
-// Read the JSON file into an object
-const paths = JSON.parse(fs.readFileSync('./vcards.json', 'utf8'));
+// Read the JSON file into an object asynchronously
+let paths;
+fs.readFile(path.join(__dirname, 'vcards.json'), 'utf8')
+  .then(data => {
+    paths = JSON.parse(data);
+  })
+  .catch(error => {
+    console.error('Failed to read vcards.json', error);
+    paths = {}; // Fallback to an empty object
+  });
 
-app.get('/:name', (req, res) => {
+app.get('/:name', async (req, res) => {
   const { name } = req.params;
+  const unknownFilePath = path.join(__dirname, 'vcards', 'bulunamadi', 'bulunamadi.html'); // Path for the unknown user HTML
 
-  // Check if the name exists in the paths object
-  if (paths.hasOwnProperty(name)) {
+  // Basic input sanitization
+  if (Object.prototype.hasOwnProperty.call(paths, name)) {
     const filePath = paths[name];
 
-    // Check if the file exists
-    if (fs.existsSync(filePath)) {
-      // Serve the HTML file
-      console.log("Serving file: ", filePath)
+    try {
+      // Check if the file exists asynchronously
+      await fs.access(filePath);
+      console.log("Serving file: ", filePath);
       res.sendFile(path.resolve(filePath));
-    } else {
-      res.status(404).send('HTML file not found');
+    } catch (error) {
+      console.log("Error | Serving file: ", filePath);
+      // If the file doesn't exist, serve the unknown user HTML
+      res.sendFile(path.resolve(unknownFilePath));
     }
   } else {
-    console.log("Name not found in paths: serving the unknown user html file");
-    // vcards/bulunamadi/bulunamadi.html
-    const unknownFilePath = path.join(__dirname, 'vcards', 'bulunamadi', 'bulunamadi.html');
+    console.log("False | Serving file: ", filePath);
+    // If the name is not found in paths, serve the unknown user HTML
     res.sendFile(path.resolve(unknownFilePath));
   }
 });
