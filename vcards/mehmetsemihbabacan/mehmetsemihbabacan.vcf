@@ -1,0 +1,22 @@
+BEGIN:VCARD
+VERSION:3.0
+N:BABACAN;Mehmet Semih;;;
+FN:Mehmet Semih BABACAN
+ORG:Solace Akıllı Yaşam Sistemleri
+ADR;TYPE=WORK:
+TITLE:Yazılım Mimarisi ve Sistem Lideri
+TEL;TYPE=CELL:+905551432027
+TEL;TYPE=WORK:
+TEL;TYPE=HOME:
+TEL;TYPE=MSG:
+EMAIL;TYPE=WORK:semih.babacan@solace.com.tr
+URL;TYPE=Digital Business Card:
+URL:msbabacan.tech
+URL;TYPE=Website:msbabacan.tech
+URL;TYPE=GitHub:https://github.com/koltukutsu
+URL;TYPE=LinkedIn:https://linkedin.com/mehmetsemihbabacan
+URL;TYPE=Instagram:https://instagram.com/msemihbabacan
+KEY;TYPE=PGP;ENCODING=b:
+NOTE:
+UID:EnBizCard-100173646
+END:VCARD
