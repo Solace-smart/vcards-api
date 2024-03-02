@@ -1,0 +1,20 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Koçak;Kenan;;;
+FN:Kenan Koçak
+ORG:Solace Akıllı Sistemler
+TITLE:Şirket Lideri
+TEL;TYPE=CELL:+905343837980
+TEL;TYPE=WORK:
+TEL;TYPE=HOME:
+TEL;TYPE=MAIN:
+TEL;TYPE=MSG:
+TEL;TYPE=SIGNAL:
+EMAIL;TYPE=WORK:kenan.kocak@solace.com.tr
+URL;TYPE=Digital Business Card:https://kart.solace.com.tr/kenankocak/
+URL:
+
+KEY;TYPE=PGP;ENCODING=b:
+NOTE:
+UID:EnBizCard-100776254
+END:VCARD

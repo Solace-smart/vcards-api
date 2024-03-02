@@ -1,0 +1,20 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Akıncı;Ahmet Furkan;;;
+FN:Ahmet Furkan Akıncı
+ORG:Solace Akıllı Sistemler
+TITLE:Yapay Zeka ve IoT Lideri
+TEL;TYPE=CELL:+905415314711
+TEL;TYPE=WORK:
+TEL;TYPE=HOME:
+TEL;TYPE=MAIN:
+TEL;TYPE=MSG:
+TEL;TYPE=SIGNAL:
+EMAIL;TYPE=WORK:furkan.akinci@solace.com.tr
+URL;TYPE=Digital Business Card:https://kart.solace.com.tr/furkanakinci/
+URL:
+
+KEY;TYPE=PGP;ENCODING=b:
+NOTE:
+UID:EnBizCard-100170320
+END:VCARD
